@@ -10,8 +10,8 @@ const input_content = ref('')
 const input_category = ref(null)
 
 //filtering system setup
-const todos_asc = computed(() => todos.value.sort((a,  b) => {
-  return a.createdAt - b.createdAt
+const todos_asc = computed(() => todos.value.sort((a, b) => {
+  return b.createdAt - a.createdAt
 }))
 
 const addTodo = () => {
@@ -23,7 +23,7 @@ const addTodo = () => {
     content: input_content.value,
     category: input_category.value,
     done: false,
-    createdAt: new Date.getTime()
+    createdAt: new Date().getTime()
   })
 }
 
@@ -37,6 +37,7 @@ watch(name, (newVal) => {
 
 onMounted(() => {
   name.value = localStorage.getItem('name') || ''
+  todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 
 </script>
@@ -44,7 +45,7 @@ onMounted(() => {
 
 <template>
 
-  <maim class="app">
+  <main class="app">
 
     <section class="greeting">
       <h2 class="title">
@@ -68,8 +69,7 @@ onMounted(() => {
                 type="radio" 
                 name="category"
                 value="business"
-                v-model="input_category"
-                />
+                v-model="input_category" />
                 <span class="bubble business"></span>
                 <div>Business</div>
             </label>
@@ -79,8 +79,7 @@ onMounted(() => {
                 type="radio" 
                 name="category"
                 value="personal"
-                v-model="input_category"
-                />
+                v-model="input_category" />
                 <span class="bubble personal"></span>
                 <div>Personal</div>
             </label>
@@ -90,6 +89,6 @@ onMounted(() => {
       </form>
     </section>
 
-  </maim>
+  </main>
 
 </template>
