@@ -18,7 +18,18 @@ const addTodo = () => {
   if (input_content.value.trim() === '' || input_category.value === null) {
     return  
   }
+
+  todos.value.push({
+    content: input_content.value,
+    category: input_category.value,
+    done: false,
+    createdAt: new Date.getTime()
+  })
 }
+
+watch(todos, newVal => {
+  localStorage.setItem('todos', JSON.stringify(newVal))
+})
 
 watch(name, (newVal) => {
   localStorage.setItem('name', newVal)
